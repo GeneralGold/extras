@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <header>
+        <h1>YouTube Video Player</h1>
+        <h2>Create Your Own Video Player</h2>
+    </header>
+
+    <section class="player-wrapper">
+        <section class="video-holder flex flex-center">
+            <video id="theVideo" src=""></video>
+        </section>
+
+        <section class="video-controller">
+            <div class="controller-container flex flex-col justify-ard">
+                <div class="play-bar">
+                    <div class="running"></div>
+                </div>
+                <section class="flex items-center justify-btw">
+                    <section class="state-control flex items-center">
+                        <span class="material-symbols-rounded icon me-10 play" title="Play">play_arrow</span>
+                        <span class="material-symbols-rounded icon me-10 pause hidden" title="Pause">pause</span>
+                        <span class="material-symbols-rounded icon me-10 play-next" title="Play Next Video"
+                            onclick="handleNext(this)">skip_next</span>
+                        <div class="sound flex items-center">
+                            <span class="material-symbols-rounded icon mute" title="Mute"
+                                onclick="handleMute('m')">volume_up</span>
+                            <span class="material-symbols-rounded icon unmute hidden" title="Unmute"
+                                onclick="handleMute('um')">volume_off</span>
+                            <span class="flex items-center volume-container">
+                                <input type="range" min="0" max="1" step="0.05" value="1" class="sound-volume"
+                                    title="Volume">
+                            </span>
+                        </div>
+                        <span class="time-stamp ms-10 items-center">
+                            <span class="current-time">00:00</span>
+                            <span class="separator"> / </span>
+                            <span class="total-time">00:00</span>
+                        </span>
+                    </section>
+
+                    <section class="play-options flex items-center">
+                        <div class="auto-play auto-play-bar flex items-center justify-end me-10" title="Autoplay"
+                            onclick="handleAutoplay(this)">
+                            <div class="material-symbols-rounded icon auto-play-switcher">play_arrow</div>
+                        </div>
+
+                        <span class="material-symbols-rounded icon me-10 grayed-out" onclick="handleSubtitle(this)"
+                            title="Subtitle">closed_caption</span>
+
+                        <div class="icon-size me-10">
+                            <span class="material-symbols-rounded icon" title="Settings"
+                                onclick="document.querySelector('.player-options-wrapper').classList.toggle('hidden')">settings</span>
+                            <section class="player-options-wrapper hidden">
+                                <div>
+                                    <div class="flex items-center justify-btw" title="Play Speed">
+                                        <div class="flex items-center">
+                                            <span class="material-symbols-rounded icon">slow_motion_video</span>
+                                            <span class="ms-10">Play Speed</span>
+                                        </div>
+                                        <div>
+                                            <select name="play-speed" id="play-speed" onchange="handlePlaySpeed(this)">
+                                                <option value="0.25">0.25</option>
+                                                <option value="0.5">0.5</option>
+                                                <option value="0.75">0.75</option>
+                                                <option value="1" selected>Normal</option>
+                                                <option value="1.25">1.25</option>
+                                                <option value="1.5">1.5</option>
+                                                <option value="1.75">1.75</option>
+                                                <option value="2">2</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-center justify-btw mt-10" title="Quality">
+                                        <div class="flex items-center">
+                                            <span class="material-symbols-rounded icon">tune</span>
+                                            <span class="ms-10">Quality</span>
+                                        </div>
+                                        <div>
+                                            <select name="quality" id="quality">
+                                                <option value="1080">1080p <sup>HD</sup></option>
+                                                <option value="720">720p</option>
+                                                <option value="480">480p</option>
+                                                <option value="360">360p</option>
+                                                <option value="240">240p</option>
+                                                <option value="auto" selected>Auto(480p)</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                        <span class="material-symbols-rounded icon me-10" title="Miniplayer"
+                            onclick="handlePictureInPicuture()">branding_watermark</span>
+                        <span class="material-symbols-rounded icon me-10" title="Theater mode">crop_3_2</span>
+                        <span class="material-symbols-rounded icon me-10 fullscreen" title="Full Screen"
+                            onclick="handleFullScreen(this)">fullscreen</span>
+                        <span class="material-symbols-rounded icon me-10 fullscreen_exit hidden" title="Exit Full Screen"
+                            onclick="handleFullScreen()">fullscreen_exit</span>
+                    </section>
+                </section>
+            </div>
+        </section>
+        <section class="Subtitle-wrapper hidden">
+            <section>
+                <div>This is an example subtitle</div>
+            </section>
+        </section>
+    </section>
+
+    <section class="video-title">
+        <h3 class="title">Video Title</h3>
+    </section>
+  </body>
+  <script>
+  'use strict'
+
+    const playerWrapper = document.querySelector(".player-wrapper")
+    const videoEl = document.querySelector("video")
+    const playBtn = document.querySelector(".play")
+    const pauseBtn = document.querySelector(".pause")
+    const muteBtn = document.querySelector(".mute")
+    const unmuteBtn = document.querySelector(".unmute")
+    const currentTimeBar = document.querySelector(".running")
+    const playBar = document.querySelector(".play-bar")
+    const currentTime = document.querySelector(".current-time")
+    const totalTime = document.querySelector(".total-time")
+    const volume_ = document.querySelector(".sound-volume")
+    const videoTitle = document.querySelector(".title")
+    const settingsBox = document.querySelector(".player-options-wrapper")
+    const playNext_ = document.querySelector(".play-next")
+
+    const videoList = [
+        "Video 01", // path to the video source
+        "Video 02",
+        "Video 03",
+    ]
+
+    const settings = {
+        videoIndex: 0,
+        autoplay: false,
+        playspeedWrapper: null,
+        fullscreen: false
+    }
+
+    videoEl.src = videoList[0] + ".mp4"
+
+    function handlePlay() {
+        videoEl.play()
+        toggleDisplay(playBtn, pauseBtn)
+    }
+
+    playBtn.addEventListener("click", handlePlay)
+
+    pauseBtn.onclick = function () {
+        videoEl.pause()
+        toggleDisplay(pauseBtn, playBtn)
+    }
+
+
+    videoEl.onplaying = function () {
+        totalTime.innerHTML = videoDuration(videoEl.duration)
+    }
+
+    videoEl.ontimeupdate = function () {
+        currentTime.innerHTML = videoDuration(videoEl.currentTime)
+        currentTimeBar.style.width = (videoEl.currentTime / videoEl.duration) * 100 + "%"
+    }
+
+    function handleMute(m) {
+        videoEl.muted = m === "m"
+
+        if (m === "m") {
+            toggleDisplay(muteBtn, unmuteBtn)
+        } else {
+            toggleDisplay(unmuteBtn, muteBtn)
+        }
+    }
+
+    volume_.oninput = function () {
+        videoEl.volume = volume_.value
+    }
+
+    function handleNext(el) {
+        if (settings.videoIndex < videoList.length - 1) {
+            settings.videoIndex++
+            videoEl.src = videoList[settings.videoIndex] + '.mp4'
+            videoTitle.innerHTML = videoList[settings.videoIndex]
+            handlePlay()
+
+            if (settings.videoIndex + 1 === videoList.length) {
+                el.disabled = true
+                el.classList.add('grayed-out')
+            }
+        }
+    }
+
+    videoEl.onended = function () {
+        if (settings.autoplay) {
+            handleNext(playNext_)
+        }
+    }
+
+    function handleAutoplay(el) {
+        el.classList.toggle("justify-end")
+        let currentText = el.firstElementChild.textContent
+        settings.autoplay = !settings.autoplay
+
+        if (currentText === "pause") {
+            el.firstElementChild.textContent = "play_arrow"
+        } else {
+            el.firstElementChild.textContent = "pause"
+
+        }
+    }
+
+    function handleSubtitle(el) {
+        el.classList.toggle("grayed-out")
+        const subtitle_ = document.querySelector(".Subtitle-wrapper")
+        subtitle_.classList.toggle("hidden")
+    }
+
+    function handlePlaySpeed(el) {
+        settings.playspeedWrapper = el
+        videoEl.playbackRate = el.value
+    }
+
+    function handlePictureInPicuture() {
+        if (document.pictureInPictureElement) {
+            document.exitPictureInPicture()
+        } else if (document.pictureInPictureEnabled) {
+            playerWrapper.classList.add("hidden")
+            videoEl.requestPictureInPicture()
+        }
+    }
+
+    videoEl.onleavepictureinpicture = function () {
+        playerWrapper.classList.remove("hidden")
+    }
+
+    function handleFullScreen(f) {
+        const fullscreen_exit = document.querySelector(".fullscreen_exit")
+        const fullscreen = document.querySelector(".fullscreen")
+
+        playerWrapper.classList.toggle('full-screen')
+        if (f) {
+            toggleDisplay(fullscreen, fullscreen_exit)
+            settings.fullscreen = true
+        } else {
+            toggleDisplay(fullscreen_exit, fullscreen)
+            settings.fullscreen = false
+        }
+    }
+
+    function handleSkippingTime(e) {
+        let x_ = e.clientX
+        const barWidth = playBar.offsetWidth
+        if (!settings.fullscreen) {
+            x_ = x_ - 40
+        }
+
+        const c_ = x_ / barWidth
+        currentTimeBar.style.width = c_ * 100 + '%'
+        videoEl.currentTime = c_ * videoEl.duration
+    }
+
+    playBar.onclick = handleSkippingTime
+
+    function toggleDisplay(hide, display) {
+        hide.classList.add("hidden")
+        display.classList.remove("hidden")
+    }
+
+    function videoDuration(d) {
+        const sec = Math.round(d % 60)
+        const min = Math.round(d / 60)
+        const hr = min > 59 ? Math.round(min / 60) : 0
+
+        return hr > 0 ? hr + ' : ' + min + ' : ' + sec : min + ' : ' + sec
+    }
+
+    <script type="text/javascript">
+    document.getElementById("theVideo").src = "https://modernia.co/videos/" + getURLParameter("v") + ".mp4";
+    </script>
+
+  </script>
+  <style>
+  body {
+        margin: 0;
+        padding: 0;
+    }
+
+    header {
+        padding: 5px 0;
+        text-align: center;
+        background: #009090;
+        color: #fff;
+    }
+
+    header h1 {
+        font-size: 40px;
+    }
+
+    .material-symbols-rounded {
+        font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 48
+    }
+
+    .icon {
+        font-size: 30px;
+        color: #fff;
+    }
+
+    .icon-size {
+        width: 30px;
+        height: 25px;
+        overflow: visible;
+    }
+
+    .player-wrapper {
+        width: 776px;
+        height: 437px;
+        margin-top: 30px;
+        margin-left: 40px;
+        color: #fff;
+    }
+
+    .player-wrapper.full-screen {
+        width: 100%;
+        height: 100%;
+        margin-top: 0;
+        margin-left: 0;
+        margin: 0;
+        padding: 0;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: black;
+    }
+
+    .video-controller {
+        width: 100%;
+        height: 70px;
+        position: relative;
+        top: -70px;
+        opacity: 0;
+    }
+
+    .player-wrapper:hover .video-controller {
+        opacity: 1;
+        transition: opacity 3s;
+    }
+
+    .controller-container {
+        height: inherit;
+    }
+
+    .video-holder {
+        width: inherit;
+        height: inherit;
+        background: #000000d9;
+    }
+
+    video {
+        width: auto;
+        height: inherit;
+    }
+
+    .auto-play-bar {
+        width: 50px;
+        height: 15px;
+        border-radius: 10px;
+        background: #ffffffa7;
+    }
+
+    .auto-play-switcher {
+        font-size: 20px;
+        padding: 1px;
+        border-radius: 50%;
+        background: #fff;
+        color: #000;
+    }
+
+    .play-bar {
+        width: 100%;
+        height: 3px;
+        background: #ffffffa5;
+        cursor: pointer;
+    }
+
+    .running {
+        width: 0%;
+        height: inherit;
+        background: #f00;
+    }
+
+    .player-options-wrapper {
+        position: relative;
+        height: 110px;
+        top: -200px;
+        left: -160px;
+        width: 250px;
+        background: #5a56568b;
+        padding: 7px;
+        border-radius: 10px;
+    }
+
+    select {
+        background: transparent;
+        color: #fff;
+        border: none;
+        outline: none;
+    }
+
+    select option {
+        color: #000;
+    }
+
+    .video-title {
+        margin-top: 20px;
+        margin-left: 40px;
+        margin-bottom: 90px;
+    }
+
+    .volume-container {
+        display: none !important;
+    }
+
+    .sound:hover .volume-container {
+        display: flex !important;
+    }
+
+    input[type="range"] {
+        width: 50px;
+        appearance: none;
+        -webkit-appearance: none;
+        margin: 0;
+        padding: 0;
+        background-color: #fff;
+        display: block;
+        height: 3px;
+    }
+
+    input[type='range']::-webkit-slider-thumb {
+        width: 14px;
+        height: 14px;
+        appearance: none;
+        -webkit-appearance: none;
+        background: #fff;
+        background-color: #fff;
+        border-radius: 9px;
+        vertical-align: middle;
+    }
+
+    .Subtitle-wrapper {
+        position: relative;
+        top: -150px;
+        text-align: center;
+    }
+
+    sup {
+        vertical-align: super;
+        font-size: 11px;
+    }
+
+
+    /* general styles */
+
+    .flex {
+        display: flex;
+    }
+
+    .flex-col {
+        flex-direction: column;
+    }
+
+    .items-center {
+        align-items: center;
+    }
+
+    .flex-center {
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+    }
+
+    .justify-btw {
+        justify-content: space-between;
+    }
+
+    .justify-ard {
+        justify-content: space-around;
+    }
+
+    .justify-end {
+        justify-content: flex-end;
+    }
+
+    .justify-start {
+        justify-content: flex-start;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .mt-10 {
+        margin-top: 10px;
+    }
+
+    .ms-10 {
+        margin-left: 10px;
+    }
+
+    .me-10 {
+        margin-right: 10px;
+    }
+
+    .grayed-out {
+        color: gray;
+    }
+
+
+  </style>
+</html>
