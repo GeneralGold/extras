@@ -2,13 +2,16 @@
 <html lang="">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet" />
+    <style>
+  @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap');
+    </style>
+    <title>Modernia Video Player</title>
   </head>
   <body>
-    <header>
-        <h1>YouTube Video Player</h1>
-        <h2>Create Your Own Video Player</h2>
-    </header>
+    <div class="heading">
+    <h>Modernia Video Player</h>
+    </div>
 
     <section class="player-wrapper">
         <section class="video-holder flex flex-center">
@@ -114,7 +117,7 @@
     </section>
 
     <section class="video-title">
-        <h3 class="title">Video Title</h3>
+        <h3 class="title">Probably a really cool video, idk</h3>
     </section>
   </body>
   <script>
@@ -438,9 +441,11 @@
     }
 
     .video-title {
-        margin-top: 20px;
+        margin-top: 0px;
         margin-left: 40px;
         margin-bottom: 90px;
+        font-family: 'Open Sans', sans-serif;
+        color: black;
     }
 
     .volume-container {
@@ -541,6 +546,14 @@
         color: gray;
     }
 
+    .heading {
+    padding: 10px;
+    text-align: center;
+    background: #15111a;
+    color: white;
+    font-size: 20px;
+    font-family: 'Open Sans', sans-serif;
+    }
 
   </style>
 </html>
