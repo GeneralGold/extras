@@ -2,7 +2,7 @@
 <html lang="">
   <head>
     <meta charset="utf-8">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <style>
   @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap');
     </style>
@@ -26,14 +26,14 @@
                 </div>
                 <section class="flex items-center justify-btw">
                     <section class="state-control flex items-center">
-                        <span class="material-symbols-rounded icon me-10 play" title="Play">play_arrow</span>
-                        <span class="material-symbols-rounded icon me-10 pause hidden" title="Pause">pause</span>
-                        <span class="material-symbols-rounded icon me-10 play-next" title="Play Next Video"
+                        <span class="material-symbols-outlined icon me-10 play" title="Play">play_arrow</span>
+                        <span class="material-symbols-outlined icon me-10 pause hidden" title="Pause">pause</span>
+                        <span class="material-symbols-outlined icon me-10 play-next" title="Play Next Video"
                             onclick="handleNext(this)">skip_next</span>
                         <div class="sound flex items-center">
-                            <span class="material-symbols-rounded icon mute" title="Mute"
+                            <span class="material-symbols-outlined icon mute" title="Mute"
                                 onclick="handleMute('m')">volume_up</span>
-                            <span class="material-symbols-rounded icon unmute hidden" title="Unmute"
+                            <span class="material-symbols-outlined icon unmute hidden" title="Unmute"
                                 onclick="handleMute('um')">volume_off</span>
                             <span class="flex items-center volume-container">
                                 <input type="range" min="0" max="1" step="0.05" value="1" class="sound-volume"
@@ -50,20 +50,20 @@
                     <section class="play-options flex items-center">
                         <div class="auto-play auto-play-bar flex items-center justify-end me-10" title="Autoplay"
                             onclick="handleAutoplay(this)">
-                            <div class="material-symbols-rounded icon auto-play-switcher">play_arrow</div>
+                            <div class="material-symbols-outlined icon auto-play-switcher">play_arrow</div>
                         </div>
 
-                        <span class="material-symbols-rounded icon me-10 grayed-out" onclick="handleSubtitle(this)"
+                        <span class="material-symbols-outlined icon me-10 grayed-out" onclick="handleSubtitle(this)"
                             title="Subtitle">closed_caption</span>
 
                         <div class="icon-size me-10">
-                            <span class="material-symbols-rounded icon" title="Settings"
+                            <span class="material-symbols-outlined icon" title="Settings"
                                 onclick="document.querySelector('.player-options-wrapper').classList.toggle('hidden')">settings</span>
                             <section class="player-options-wrapper hidden">
                                 <div>
                                     <div class="flex items-center justify-btw" title="Play Speed">
                                         <div class="flex items-center">
-                                            <span class="material-symbols-rounded icon">slow_motion_video</span>
+                                            <span class="material-symbols-outlined icon">slow_motion_video</span>
                                             <span class="ms-10">Play Speed</span>
                                         </div>
                                         <div>
@@ -82,29 +82,29 @@
 
                                     <div class="flex items-center justify-btw mt-10" title="Quality">
                                         <div class="flex items-center">
-                                            <span class="material-symbols-rounded icon">tune</span>
+                                            <span class="material-symbols-outlined icon">tune</span>
                                             <span class="ms-10">Quality</span>
                                         </div>
                                         <div>
                                             <select name="quality" id="quality">
-                                                <option value="1080">1080p <sup>HD</sup></option>
+                                                <option value="1080" selected>1080p <sup>HD</sup></option>
                                                 <option value="720">720p</option>
                                                 <option value="480">480p</option>
                                                 <option value="360">360p</option>
                                                 <option value="240">240p</option>
-                                                <option value="auto" selected>Auto(480p)</option>
+                                                <option value="auto" >Auto(480p)</option>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
                             </section>
                         </div>
-                        <span class="material-symbols-rounded icon me-10" title="Miniplayer"
+                        <span class="material-symbols-outlined icon me-10" title="Miniplayer"
                             onclick="handlePictureInPicuture()">branding_watermark</span>
-                        <span class="material-symbols-rounded icon me-10" title="Theater mode">crop_3_2</span>
-                        <span class="material-symbols-rounded icon me-10 fullscreen" title="Full Screen"
+                        <span class="material-symbols-outlined icon me-10" title="Theater mode">crop_3_2</span>
+                        <span class="material-symbols-outlined icon me-10 fullscreen" title="Full Screen"
                             onclick="handleFullScreen(this)">fullscreen</span>
-                        <span class="material-symbols-rounded icon me-10 fullscreen_exit hidden" title="Exit Full Screen"
+                        <span class="material-symbols-outlined icon me-10 fullscreen_exit hidden" title="Exit Full Screen"
                             onclick="handleFullScreen()">fullscreen_exit</span>
                     </section>
                 </section>
@@ -112,7 +112,7 @@
         </section>
         <section class="Subtitle-wrapper hidden">
             <section>
-                <div>This is an example subtitle</div>
+                <div>No subtitles idk how to do this</div>
             </section>
         </section>
     </section>
@@ -321,11 +321,11 @@
         font-size: 40px;
     }
 
-    .material-symbols-rounded {
+    .material-symbols-outlined {
         font-variation-settings:
             'FILL' 0,
-            'wght' 400,
-            'GRAD' 0,
+            'wght' 500,
+            'GRAD' 50,
             'opsz' 48
     }
 
