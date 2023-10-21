@@ -7,7 +7,34 @@
   @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap');
     </style>
     <link rel="icon" href="https://modernia.co/watch/icon.png">
-    <title>Modernia Video Player</title>
+    <title>Modernia Video</title>
+
+    <script>
+
+       function GetURLParameter(sParam)
+{
+    var sPageURL = window.location.search.substring(1);
+    var sURLVariables = sPageURL.split('&');
+    for (var i = 0; i < sURLVariables.length; i++)
+    {
+        var sParameterName = sURLVariables[i].split('=');
+        if (sParameterName[0] == sParam)
+        {
+            return sParameterName[1];
+        }
+    }
+}
+
+    fetch("https://modernia.co/videos/" + GetURLParameter("v") + ".json")
+        .then(response => response.json())
+        .then(data => {
+        console.log(data.vidTitle)
+        var moderniaTitle = data.vidTitle
+        })
+
+        document.title = moderniaTitle
+    </script>
+
   </head>
   <body>
     <div class="heading">
@@ -118,7 +145,10 @@
     </section>
 
     <section class="video-title">
-        <h3 class="title">Probably a really cool video, idk</h3>
+        <h3 id="editableTitle" class="title">Probably a really cool video, idk</h3>
+        <script>
+            document.getElementById("editableTitle").innerHTML = moderniaTitle
+        </script>
     </section>
   </body>
   <script>
@@ -143,19 +173,7 @@
         "", // path to the video source
     ]
 
-    function GetURLParameter(sParam)
-{
-    var sPageURL = window.location.search.substring(1);
-    var sURLVariables = sPageURL.split('&');
-    for (var i = 0; i < sURLVariables.length; i++)
-    {
-        var sParameterName = sURLVariables[i].split('=');
-        if (sParameterName[0] == sParam)
-        {
-            return sParameterName[1];
-        }
-    }
-}
+
 
     const settings = {
         videoIndex: 0,
