@@ -29,8 +29,8 @@
     fetch("https://modernia.co/videos/" + GetURLParameter("v") + ".json")
         .then(response => response.json())
         .then(data => {
-        console.log(data.vidTitle);
-        moderniaTitle = data.vidTitle
+        var moderniaTitle = data.vidTitle
+        console.log(data.vidTitle)
         });
         document.title = moderniaTitle
     </script>
@@ -177,7 +177,7 @@
 
     const settings = {
         videoIndex: 0,
-        autoplay: false,
+        autoplay: true,
         playspeedWrapper: null,
         fullscreen: false
     }
