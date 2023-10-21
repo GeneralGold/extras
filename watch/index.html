@@ -29,10 +29,11 @@
     fetch("https://modernia.co/videos/" + GetURLParameter("v") + ".json")
         .then(response => response.json())
         .then(data => {
-        var moderniaTitle = data.vidTitle
-        console.log(data.vidTitle)
+        var moderniaTitle = data.vidTitle;
+        console.log(data.vidTitle);
+        document.title = moderniaTitle;
         });
-        document.title = moderniaTitle
+
     </script>
 
   </head>
