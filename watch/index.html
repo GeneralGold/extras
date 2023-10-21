@@ -139,6 +139,20 @@
         "", // path to the video source
     ]
 
+    function GetURLParameter(sParam)
+{
+    var sPageURL = window.location.search.substring(1);
+    var sURLVariables = sPageURL.split('&');
+    for (var i = 0; i < sURLVariables.length; i++)
+    {
+        var sParameterName = sURLVariables[i].split('=');
+        if (sParameterName[0] == sParam)
+        {
+            return sParameterName[1];
+        }
+    }
+}​
+
     const settings = {
         videoIndex: 0,
         autoplay: false,
@@ -146,9 +160,8 @@
         fullscreen: false
     }
 
-    videoEl.src = "https://modernia.co/videos/" + getURLParameter("v") + ".mp4";
+    videoEl.src = "https://modernia.co/videos/" + GetURLParameter("v") + ".mp4";
 
-    document.getElementById("videoEl").src = "https://modernia.co/videos/" + getURLParameter("v") + ".mp4";
 
     function handlePlay() {
         videoEl.play()
