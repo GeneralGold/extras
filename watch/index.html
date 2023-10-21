@@ -23,15 +23,17 @@
             return sParameterName[1];
         }
     }
-}
+};
 
+    var moderniaTitle = "tmp";
     fetch("https://modernia.co/videos/" + GetURLParameter("v") + ".json")
         .then(response => response.json())
         .then(data => {
-        console.log(data.vidTitle)
-        var moderniaTitle = data.vidTitle
+        console.log(data.vidTitle);
+        moderniaTitle = data.vidTitle
         })
 
+        moderniaTitle = data.vidTitle;
         document.title = moderniaTitle
     </script>
 
