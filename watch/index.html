@@ -148,6 +148,8 @@
 
     videoEl.src = "https://modernia.co/videos/" + getURLParameter("v") + ".mp4";
 
+    document.getElementById("videoEl").src = "https://modernia.co/videos/" + getURLParameter("v") + ".mp4";
+
     function handlePlay() {
         videoEl.play()
         toggleDisplay(playBtn, pauseBtn)
