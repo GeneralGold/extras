@@ -8,7 +8,10 @@
     </style>
     <link rel="icon" href="https://modernia.co/watch/icon.png">
     <title>Modernia Video</title>
-
+    <meta id="embedTitle" content="please reload" property="og:title" />
+    <meta id="embedURL" content="please reload" property="og:url" />
+    <meta id="embedVideo" content="please reload" property="og:video" />
+    <meta content="#43B581" data-react-helmet="true" name="theme-color" />
 
 
   </head>
@@ -147,6 +150,9 @@
         console.log(data.vidTitle);
         document.title = moderniaTitle + " - Modernia Video";
         document.getElementById("editableTitle").innerHTML = moderniaTitle;
+        document.getElementById("embedTitle").innerHTML = moderniaTitle;
+        document.getElementById("embedURL").innerHTML = "https://modernia.co/watch?v=" + GetURLParameter("v");
+        document.getElementById("embedVideo").innerHTML = "https://modernia.co/videos/" + GetURLParameter("v") + ".webm";
         });
 
     </script>
