@@ -116,9 +116,9 @@
                 </section>
             </div>
         </section>
-        <section class="Subtitle-wrapper hidden">
+        <section id="subtitlesVTT" class="Subtitle-wrapper hidden">
             <section>
-                <div>No subtitles idk how to do this</div>
+                <div>No subtitles</div>
             </section>
         </section>
     </section>
@@ -153,6 +153,7 @@
         document.getElementById("embedTitle").innerHTML = moderniaTitle;
         document.getElementById("embedURL").innerHTML = "https://modernia.co/watch?v=" + GetURLParameter("v");
         document.getElementById("embedVideo").innerHTML = "https://modernia.co/videos/" + GetURLParameter("v") + ".webm";
+        document.getElementById("subtitlesVTT").innerHTML = "https://modernia.co/videos/" + GetURLParameter("v") + ".vtt";
         });
 
     </script>
