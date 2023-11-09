@@ -118,7 +118,9 @@
         </section>
         <section id="subtitlesVTT" class="Subtitle-wrapper hidden">
             <section>
-                <div>No subtitles</div>
+                <div>
+                <track src="/captions_file.vtt" label="English" kind="captions" srclang="en-us" default >
+                </div>
             </section>
         </section>
     </section>
@@ -127,6 +129,8 @@
         <h3 id="editableTitle" class="title">Probably a really cool video, idk</h3>
 
         <script>
+
+
 
        function GetURLParameter(sParam)
 {
@@ -153,7 +157,7 @@
         document.getElementById("embedTitle").innerHTML = moderniaTitle;
         document.getElementById("embedURL").innerHTML = "https://modernia.co/watch?v=" + GetURLParameter("v");
         document.getElementById("embedVideo").innerHTML = "https://modernia.co/videos/" + GetURLParameter("v") + ".webm";
-        document.getElementById("subtitlesVTT").innerHTML = "https://modernia.co/videos/" + GetURLParameter("v") + ".srt";
+        document.getElementById("subtitlesVTT").src = "https://modernia.co/videos/" + GetURLParameter("v") + ".vtt";
         });
 
     </script>
