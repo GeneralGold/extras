@@ -57,13 +57,18 @@ fetch("https://modernia.co/audio/" + GetURLParameter("a") + ".json")
         console.log(data.audioTitle);
         document.title = moderniaTitle + " - Modernia Music";
         document.getElementById("editableTitle").innerHTML = moderniaTitle;
+        var audio = document.getElementById("moderniaAudio");
         var source = "https://modernia.co/audio/" + GetURLParameter("a") + ".mp3";
-        document.getElementById("moderniaAudio").src = source;
+        audio.src = source;
+        audio.load();
+
         // No need for document.getElementById("moderniaAudio").load();
         console.log("https://modernia.co/audio/" + GetURLParameter("a") + ".mp3");
         console.log(document.getElementById("moderniaAudio").src);
         console.log(source);
     });
+        var maudio = document.getElementById("moderniaAudio");
+        console.log("Current audio state:", maudio.readyState);
 
 });
 
