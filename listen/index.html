@@ -17,7 +17,7 @@
     </div>
     <div>
         <section class="audio-player-wrapper">
-             <audio controls>
+             <audio id="mdrAudio" controls>
                 <source id="moderniaAudio" src="" type="audio/mpeg">
                 Your browser does not support the audio tag.
              </audio>
@@ -60,7 +60,8 @@ fetch("https://modernia.co/audio/" + GetURLParameter("a") + ".json")
         var audio = document.getElementById("moderniaAudio");
         var source = "https://modernia.co/audio/" + GetURLParameter("a") + ".mp3";
         audio.src = source;
-        audio.load();
+        var laudio = document.getElementById("mdrAudio");
+        laudio.load();
 
         // No need for document.getElementById("moderniaAudio").load();
         console.log("https://modernia.co/audio/" + GetURLParameter("a") + ".mp3");
