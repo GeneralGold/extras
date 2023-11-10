@@ -56,8 +56,7 @@
         document.getElementById("editableTitle").innerHTML = moderniaTitle;
         var source = "https://modernia.co/audio/" + GetURLParameter("a") + ".mp3";
         document.getElementById("moderniaAudio").src = source;
-        var mAudio = document.getElementById("moderniaAudio");
-        mAudio.load();
+        document.getElementById("moderniaAudio").load();
         console.log("https://modernia.co/audio/" + GetURLParameter("a") + ".mp3");
         console.log(document.getElementById("moderniaAudio").src);
         console.log(source);
