@@ -54,9 +54,10 @@
         console.log(data.audioTitle);
         document.title = moderniaTitle + " - Modernia Music";
         document.getElementById("editableTitle").innerHTML = moderniaTitle;
-        var source = document.getElementById('moderniaAudio');
+        var source = document.getElementById("moderniaAudio");
         source.src = "https://modernia.co/audio/" + GetURLParameter("a") + ".mp3";
         console.log("https://modernia.co/audio/" + GetURLParameter("a") + ".mp3");
+        console.log(document.getElementById("moderniaAudio").src);
         });
 
     </script>
