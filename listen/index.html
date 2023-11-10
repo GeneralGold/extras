@@ -18,7 +18,7 @@
     <div>
         <section class="audio-player-wrapper">
              <audio controls>
-                <source id="moderniaAudio" src="no audio" type="audio/mp3">
+                <source id="moderniaAudio" src="" type="audio/mp3">
                 Your browser does not support the audio tag.
              </audio>
         </section>
@@ -54,8 +54,9 @@
         console.log(data.audioTitle);
         document.title = moderniaTitle + " - Modernia Music";
         document.getElementById("editableTitle").innerHTML = moderniaTitle;
-        document.getElementById("moderniaAudio").src = "https://modernia.co/audio/" + GetURLParameter("a") + ".mp3";
-        console.log("https://modernia.co/audio/" + GetURLParameter("a") + ".mp3";);
+        var source = document.getElementById('moderniaAudio');
+        source.src = "https://modernia.co/audio/" + GetURLParameter("a") + ".mp3";
+        console.log("https://modernia.co/audio/" + GetURLParameter("a") + ".mp3");
         });
 
     </script>
