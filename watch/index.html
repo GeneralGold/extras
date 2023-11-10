@@ -147,6 +147,7 @@
 };
 
     var moderniaTitle = "(please reload page)";
+    var moderniaCaptions = "No subtitles"
     fetch("https://modernia.co/videos/" + GetURLParameter("v") + ".json")
         .then(response => response.json())
         .then(data => {
@@ -157,7 +158,14 @@
         document.getElementById("embedTitle").innerHTML = moderniaTitle;
         document.getElementById("embedURL").innerHTML = "https://modernia.co/watch?v=" + GetURLParameter("v");
         document.getElementById("embedVideo").innerHTML = "https://modernia.co/videos/" + GetURLParameter("v") + ".webm";
-        document.getElementById("subtitlesVTT").src = "https://modernia.co/videos/" + GetURLParameter("v") + ".txt";
+        fetch("https://modernia.co/videos/" + GetURLParameter("v") + ".txt")
+            .then(response => response.txt())
+            .then(data => {
+            var moderniaCaptions = data;
+            console.log(data);
+            console.log(moderniaCaptions);
+            document.getElementById("subtitlesVTT").src = moderniaCaptions;
+            });
         });
 
     </script>
