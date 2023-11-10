@@ -46,7 +46,10 @@
     }
 };
 
-var moderniaTitle = "(please reload page)";
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Your script code here
+    var moderniaTitle = "(please reload page)";
 fetch("https://modernia.co/audio/" + GetURLParameter("a") + ".json")
     .then(response => response.json())
     .then(data => {
@@ -61,6 +64,9 @@ fetch("https://modernia.co/audio/" + GetURLParameter("a") + ".json")
         console.log(document.getElementById("moderniaAudio").src);
         console.log(source);
     });
+
+});
+
 
 
     </script>
