@@ -12,12 +12,13 @@
 
   </head>
   <body>
+  <img src="https://modernia.co/watch/icon.png" style="float: left; width: 70px; padding: 4px 0; margin-left: 10px" />
     <div class="heading">
     <h>Modernia Video Player</h>
     </div>
     <div>
         <section class="video-player-wrapper">
-              <video id="mvideo" width="800" height="450" controls>
+              <video id="mvideo" width="64%" height="36%" controls>
                 <source id="mvideoSrc" src="" type="video/webm">
                 Your browser does not support the video tag.
               </video>
@@ -29,7 +30,6 @@
       </body>
 
         <script>
-
 
 
        function GetURLParameter(sParam)
@@ -122,6 +122,7 @@ fetch("https://modernia.co/videos/" + GetURLParameter("v") + ".json")
         margin-top: 20px;
         margin-left: 40px;
         margin-bottom: 5px;
+        /*  padding-top: 56.25%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625)  */
     }
 
     /* general styles */
