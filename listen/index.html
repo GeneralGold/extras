@@ -51,7 +51,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Your script code here
     var moderniaTitle = "(please reload page)";
-fetch("https://modernia.co/audio/" + GetURLParameter("a") + ".json")
+fetch("https://media.modernia.co/audio/" + GetURLParameter("a") + ".json")
     .then(response => response.json())
     .then(data => {
         moderniaTitle = data.audioTitle; // Remove the 'var' keyword here
@@ -59,15 +59,12 @@ fetch("https://modernia.co/audio/" + GetURLParameter("a") + ".json")
         document.title = moderniaTitle + " - Modernia Music";
         document.getElementById("editableTitle").innerHTML = moderniaTitle;
         var audio = document.getElementById("moderniaAudio");
-        var source = "https://modernia.co/audio/" + GetURLParameter("a") + ".mp3";
+        var source = "https://media.modernia.co/audio/" + GetURLParameter("a") + ".mp3";
         audio.src = source;
         var laudio = document.getElementById("mdrAudio");
         laudio.load();
 
         // No need for document.getElementById("moderniaAudio").load();
-        console.log("https://modernia.co/audio/" + GetURLParameter("a") + ".mp3");
-        console.log(document.getElementById("moderniaAudio").src);
-        console.log(source);
     });
         var maudio = document.getElementById("moderniaAudio");
         console.log("Current audio state:", maudio.readyState);
