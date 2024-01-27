@@ -10,22 +10,27 @@
   <h1>2R Discord Webhook (#general)</h1>
 
 <div class="box">
-   <form action="https://discord.com/api/webhooks/1151985509787242668/LsL8DoWHlWIMH3uWmNYOCAuoeIyplDiF5j-bGnAa6Lmavr8Cszwy2pdMvMNLBvCMdd4w" method="POST">
+   <form enctype=multipart/form-data action="https://discord.com/api/webhooks/1151985509787242668/LsL8DoWHlWIMH3uWmNYOCAuoeIyplDiF5j-bGnAa6Lmavr8Cszwy2pdMvMNLBvCMdd4w" method="POST">
    <label for="dUsername">Username:</label>
    <img alt="GeneralGold logo" src="/2rwebhook/GeneralGoldLogo.png"> <br>
-  <input type="text" id="dUsername" name="username"><br>
+  <input required type="text" id="dUsername" name="username"><br>
   <label for="AVATARurl">Avatar URL:</label><br>
-  <input type="text" id="AVATARurl" name="avatar_url"><br>
+  <input required type="text" id="AVATARurl" name="avatar_url"><br>
   <label for="messageContent">Message content:</label><br>
-  <input type="text" id="messageContent" name="content"><br>
+  <input required type="text" id="messageContent" name="content"><br>
+  <label for="imageUpload">Attached image (leave blank if none):</label><br>
+  <input type="file" id="imageUpload" name="payload"><br>
   <input type="submit" id="submitButton">
 </form>
 </div>
+<img id="imagePreview" alt="" src=""> <br>
 
 <a id="powered">Powered by GeneralGold</a>
 
 
   </body>
+
+
   <style>
 
   body {
