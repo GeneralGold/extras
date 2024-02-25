@@ -28,6 +28,7 @@ export class UI {
                 context.fillText("BIDEN BLAST!", this.game.width * 0.5, this.game.height * 0.5 - 20);
                 context.font = "bold " + this.fontSize * 0.8 + "px " + this.fontFamily;
                 context.fillText("You managed to Blast the traitors of democracy!", this.game.width * 0.5, this.game.height * 0.5 + 20);
+                document.getElementById("nextButton").style.display = 'block';
             } else {
                 context.fillText("OBAMA ABSORB", this.game.width * 0.5, this.game.height * 0.5 - 20);
                 context.font = "bold " + this.fontSize * 0.8 + "px " + this.fontFamily;
