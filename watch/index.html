@@ -50,7 +50,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Your script code here
     var moderniaTitle = "(please reload page)";
-fetch("https://media.modernia.co/videos/" + GetURLParameter("v") + ".json")
+fetch("https://generalgold.github.io/media/videos/" + GetURLParameter("v") + ".json")
     .then(response => response.json())
     .then(data => {
         moderniaTitle = data.vidTitle; // Remove the 'var' keyword here
@@ -58,7 +58,7 @@ fetch("https://media.modernia.co/videos/" + GetURLParameter("v") + ".json")
         document.title = moderniaTitle + " - Modernia Video";
         document.getElementById("editableTitle").innerHTML = moderniaTitle;
         var newvid = document.getElementById("mvideoSrc");
-        var source = "https://media.modernia.co/videos/" + GetURLParameter("v") + ".webm";
+        var source = "https://generalgold.github.io/media/videos/" + GetURLParameter("v") + ".webm";
         newvid.src = source;
         var lvideo = document.getElementById("mvideo");
         lvideo.load();
