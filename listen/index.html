@@ -6,13 +6,13 @@
     <style>
   @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap');
     </style>
-    <link rel="icon" href="https://modernia.co/watch/icon.png">
+    <link rel="icon" href="https://generalgold.github.io/extras/watch/icon.png">
     <title>Modernia Music</title>
 
 
   </head>
   <body>
-    <img src="https://modernia.co/watch/icon.png" style="float: left; width: 70px; padding: 4px 0; margin-left: 10px" />
+    <img src="https://generalgold.github.io/extras/watch/icon.png" style="float: left; width: 70px; padding: 4px 0; margin-left: 10px" />
     <div class="heading">
     <h>Modernia Audio Player</h>
     </div>
@@ -51,7 +51,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Your script code here
     var moderniaTitle = "(please reload page)";
-fetch("https://media.modernia.co/audio/" + GetURLParameter("a") + ".json")
+fetch("https://generalgold.github.io/media/audio/" + GetURLParameter("a") + ".json")
     .then(response => response.json())
     .then(data => {
         moderniaTitle = data.audioTitle; // Remove the 'var' keyword here
@@ -59,7 +59,7 @@ fetch("https://media.modernia.co/audio/" + GetURLParameter("a") + ".json")
         document.title = moderniaTitle + " - Modernia Music";
         document.getElementById("editableTitle").innerHTML = moderniaTitle;
         var audio = document.getElementById("moderniaAudio");
-        var source = "https://media.modernia.co/audio/" + GetURLParameter("a") + ".mp3";
+        var source = "https://generalgold.github.io/media/audio/" + GetURLParameter("a") + ".mp3";
         audio.src = source;
         var laudio = document.getElementById("mdrAudio");
         laudio.load();
