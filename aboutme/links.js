@@ -4,7 +4,7 @@ export const links = [
         link:
 "https://youtube.com/@GeneralGoldYT",
         image:
-"https://generalgoldyt.com/downloads/c7ecf1a2ed0abfae2fc3a298b3e47657.jpg",
+"https://generalgoldyt.com/website-images/youtube.png",
     },
     {
         name: "Twitch",
@@ -18,6 +18,6 @@ export const links = [
         link: 
 "https://youtube.com/@GeneralGoldVODS",
         image: 
-"https://generalgoldyt.com/downloads/c7ecf1a2ed0abfae2fc3a298b3e47657.jpg",
+"https://generalgoldyt.com/website-images/youtube.png",
     },
 ];
