@@ -8,6 +8,16 @@ export const links = [
         image2:
         "https://generalgoldyt.com/aboutme/pride/trans.png",
     },
+
+    {
+        name: "VODs Channel",
+        link:
+"https://youtube.com/@GeneralGoldVODS",
+        image:
+"https://generalgoldyt.com/website-images/youtube.png",
+        image2:
+        "https://generalgoldyt.com/aboutme/pride/aegosexual.png",
+    },
     {
         name: "Twitch",
         link: 
@@ -18,12 +28,12 @@ export const links = [
         "https://generalgoldyt.com/aboutme/pride/biromantic.png",
     },
     {
-        name: "VODs Channel",
-        link: 
-"https://youtube.com/@GeneralGoldVODS",
-        image: 
-"https://generalgoldyt.com/website-images/youtube.png",
+        name: "Modernia",
+        link:
+"https://generalgoldyt.com/",
+        image:
+"https://generalgoldyt.com/webhook/GeneralGoldLogo.png",
         image2:
-        "https://generalgoldyt.com/aboutme/pride/aegosexual.png",
+        "https://generalgoldyt.com/aboutme/pride/pride.png",
     },
 ];
