@@ -81,3 +81,10 @@ function convertToNormal() {
 
     document.getElementById('outputText').value = normalText;
 }
+
+function copyToClipboard() {
+    const outputText = document.getElementById('outputText');
+    outputText.select();
+    document.execCommand('copy');
+    alert('Output copied to clipboard!');
+}

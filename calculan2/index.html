@@ -7,11 +7,10 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <a href="https://generalgoldyt.com/" target="_blank" class="top-right-icon">
+    <a href="https://generalgoldyt.com/" target="_blank" class="top-left-icon">
         <img src="https://generalgoldyt.com/webhook/GeneralGoldLogo.png" alt="General Gold Logo">
-        </a>
-
+    </a>
+    <div class="container">
         <h1>Text and Calculan Converter</h1>
         <textarea id="inputText" placeholder="Enter text or Calculan here..."></textarea>
         <div class="button-group">
@@ -19,6 +18,7 @@
             <button onclick="convertToNormal()">Convert to Normal Text</button>
         </div>
         <textarea id="outputText" placeholder="Output will appear here..." readonly></textarea>
+        <button id="copyButton" onclick="copyToClipboard()">Copy Output</button>
     </div>
     <script src="script.js"></script>
 </body>
