@@ -1,42 +1,47 @@
 function convertToCalculan() {
     const inputText = document.getElementById('inputText').value;
-    const calculanText = inputText.split('').map(char => {
-        if (/[a-zA-Z]/.test(char)) {
-            let code = char.toUpperCase().charCodeAt(0) - 64; // A=1, Z=26
-            return code.toString().padStart(2, '0');
-        } else if (/[0-9]/.test(char)) {
-            // Convert digits to their Calculan letter equivalent
-            return { '1': 'A', '2': 'B', '3': 'C', '4': 'D', '5': 'E',
-                     '6': 'F', '7': 'x', '8': 'y', '9': 'M', '0': 'e' }[char];
-        } else if (char === ':') {
-            return ':';
-        } else if (char === '"') {
-            return '²';
-        } else if (char === ',') {
-            return ',';
-        } else if (char === '(' || char === ')') {
-            return char;
-        } else if (char === '!') {
-            return '!';
-        } else if (char === '?') {
-            return '⁴';
-        } else if (char === '%') {
-            return '%';
-        } else if (char === '€') {
-            return 'π';
-        } else if (char === '=') {
-            return '051721011219.'; // "EQUALS"
-        } else if (char === '+') {
-            return '16122119.'; // "PLUS"
-        } else if (char === '-') {
-            return '1309142119.'; // "MINUS"
-        } else if (char === '/') {
-            return '1912011908.'; // "SLASH"
-        } else {
-            // Remove unrecognized symbols
-            return '';
-        }
-    }).join('') + '.';
+    const words = inputText.split(/\s+/); // Split input into words by spaces
+    const calculanWords = words.map(word => {
+        return word.split('').map(char => {
+            if (/[a-zA-Z]/.test(char)) {
+                let code = char.toUpperCase().charCodeAt(0) - 64; // A=1, Z=26
+                return code.toString().padStart(2, '0');
+            } else if (/[0-9]/.test(char)) {
+                // Convert digits to their Calculan letter equivalent
+                return { '1': 'A', '2': 'B', '3': 'C', '4': 'D', '5': 'E',
+                         '6': 'F', '7': 'x', '8': 'y', '9': 'M', '0': 'e' }[char];
+            } else if (char === ':') {
+                return ':';
+            } else if (char === '"') {
+                return '²';
+            } else if (char === ',') {
+                return ',';
+            } else if (char === '(' || char === ')') {
+                return char;
+            } else if (char === '!') {
+                return '!';
+            } else if (char === '?') {
+                return '⁴';
+            } else if (char === '%') {
+                return '%';
+            } else if (char === '€') {
+                return 'π';
+            } else if (char === '=') {
+                return '051721011219.'; // "EQUALS"
+            } else if (char === '+') {
+                return '16122119.'; // "PLUS"
+            } else if (char === '-') {
+                return '1309142119.'; // "MINUS"
+            } else if (char === '/') {
+                return '1912011908.'; // "SLASH"
+            } else {
+                // Remove unrecognized symbols
+                return '';
+            }
+        }).join('') + '.'; // Add a period after each word
+    });
+
+    const calculanText = calculanWords.join('');
     document.getElementById('outputText').value = calculanText;
 }
 
@@ -74,6 +79,12 @@ function convertToNormal() {
             normalText += '€';
         } else if (token === '%') {
             normalText += '%';
+        } else if (token === '!') {
+            normalText += '!';
+        } else if (token === ':') {
+            normalText += ':';
+        } else if (token === ',') {
+            normalText += ',';
         } else {
             // Ignore unrecognized parts
         }
