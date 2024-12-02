@@ -47,25 +47,40 @@ function convertToCalculan() {
 
 function convertToNormal() {
     const inputText = document.getElementById('inputText').value;
-    const tokens = inputText.split('.').filter(Boolean); // Split by `.` and remove empty parts
     let normalText = '';
+    let tempToken = '';
 
-    tokens.forEach(token => {
-        if (/^\d+$/.test(token)) {
-            // Convert number sequences (01, 02, ..., 26) to letters
-            for (let i = 0; i < token.length; i += 2) {
-                let num = token.substring(i, i + 2);
-                normalText += String.fromCharCode(parseInt(num) + 64); // Convert 01-26 to A-Z
+    // Loop through the input and process each character individually
+    for (let i = 0; i < inputText.length; i++) {
+        const char = inputText[i];
+
+        if (/[A-Za-z]/.test(char)) {
+            // Letters: Process normal letters
+            tempToken += char;
+        } else if (/[0-9]/.test(char)) {
+            // Numbers: Add to number processing
+            tempToken += char;
+        } else if (/[^A-Za-z0-9]/.test(char)) {
+            // Symbols: If there's a tempToken (letters or numbers), process it first
+            if (tempToken) {
+                // Process the token of letters or numbers
+                if (/^\d+$/.test(tempToken)) {
+                    // Convert number sequences (01, 02, ..., 26) to letters
+                    for (let j = 0; j < tempToken.length; j += 2) {
+                        let num = tempToken.substring(j, j + 2);
+                        normalText += String.fromCharCode(parseInt(num) + 64); // Convert 01-26 to A-Z
+                    }
+                } else {
+                    // Numbers: Convert digits to their equivalent letter in Calculan
+                    const digitMap = { A: '1', B: '2', C: '3', D: '4', E: '5', F: '6', x: '7', y: '8', M: '9', e: '0' };
+                    tempToken.split('').forEach(char => {
+                        normalText += digitMap[char];
+                    });
+                }
+                tempToken = ''; // Clear the tempToken after processing
             }
-        } else if (/[A-FaxyMe]+/.test(token)) {
-            // Convert Calculan digits back to numbers
-            const digitMap = { A: '1', B: '2', C: '3', D: '4', E: '5', F: '6', x: '7', y: '8', M: '9', e: '0' };
-            token.split('').forEach(char => {
-                normalText += digitMap[char];
-            });
-        } else {
-            // Process non-letter symbols directly
-            switch (token) {
+            // Handle symbols directly
+            switch (char) {
                 case '051721011219':
                     normalText += '=';
                     break;
@@ -103,7 +118,22 @@ function convertToNormal() {
                     normalText += ''; // Remove unrecognized parts
             }
         }
-    });
+    }
+
+    // If there's anything left in the tempToken, process it
+    if (tempToken) {
+        if (/^\d+$/.test(tempToken)) {
+            for (let j = 0; j < tempToken.length; j += 2) {
+                let num = tempToken.substring(j, j + 2);
+                normalText += String.fromCharCode(parseInt(num) + 64);
+            }
+        } else {
+            const digitMap = { A: '1', B: '2', C: '3', D: '4', E: '5', F: '6', x: '7', y: '8', M: '9', e: '0' };
+            tempToken.split('').forEach(char => {
+                normalText += digitMap[char];
+            });
+        }
+    }
 
     document.getElementById('outputText').value = normalText;
 }
