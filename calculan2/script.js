@@ -136,7 +136,7 @@ function convertToNormal() {
     }
 
     // Replace '+' with space for normal text
-    normalText = normalText.replace(/\+/g, ' ');
+    normalText = normalText.replace(/\+/g, ' ');  // Fix here: replace '+' back with space
 
     document.getElementById('outputText').value = normalText;
 }
