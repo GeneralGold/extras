@@ -52,41 +52,56 @@ function convertToNormal() {
 
     tokens.forEach(token => {
         if (/^\d+$/.test(token)) {
-            // Letter sequences: Convert numbers to letters
+            // Convert number sequences (01, 02, ..., 26) to letters
             for (let i = 0; i < token.length; i += 2) {
                 let num = token.substring(i, i + 2);
                 normalText += String.fromCharCode(parseInt(num) + 64); // Convert 01-26 to A-Z
             }
-        } else if (/^[A-FaxyMe]+$/.test(token)) {
-            // Numbers: Convert Calculan digits back to numbers
+        } else if (/[A-FaxyMe]+/.test(token)) {
+            // Convert Calculan digits back to numbers
             const digitMap = { A: '1', B: '2', C: '3', D: '4', E: '5', F: '6', x: '7', y: '8', M: '9', e: '0' };
             token.split('').forEach(char => {
                 normalText += digitMap[char];
             });
-        } else if (token === '051721011219') {
-            normalText += '=';
-        } else if (token === '16122119') {
-            normalText += '+';
-        } else if (token === '1309142119') {
-            normalText += '-';
-        } else if (token === '1912011908') {
-            normalText += '/';
-        } else if (token === '⁴') {
-            normalText += '?';
-        } else if (token === '²') {
-            normalText += '"';
-        } else if (token === 'π') {
-            normalText += '€';
-        } else if (token === '%') {
-            normalText += '%';
-        } else if (token === '!') {
-            normalText += '!';
-        } else if (token === ':') {
-            normalText += ':';
-        } else if (token === ',') {
-            normalText += ',';
         } else {
-            // Ignore unrecognized parts
+            // Process non-letter symbols directly
+            switch (token) {
+                case '051721011219':
+                    normalText += '=';
+                    break;
+                case '16122119':
+                    normalText += '+';
+                    break;
+                case '1309142119':
+                    normalText += '-';
+                    break;
+                case '1912011908':
+                    normalText += '/';
+                    break;
+                case '⁴':
+                    normalText += '?';
+                    break;
+                case '²':
+                    normalText += '"';
+                    break;
+                case 'π':
+                    normalText += '€';
+                    break;
+                case '%':
+                    normalText += '%';
+                    break;
+                case '!':
+                    normalText += '!';
+                    break;
+                case ':':
+                    normalText += ':';
+                    break;
+                case ',':
+                    normalText += ',';
+                    break;
+                default:
+                    normalText += ''; // Remove unrecognized parts
+            }
         }
     });
 
