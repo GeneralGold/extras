@@ -8,7 +8,6 @@ function convertToCalculan() {
                 let code = char.toUpperCase().charCodeAt(0) - 64; // A=1, Z=26
                 return code.toString().padStart(2, '0');
             } else if (/[0-9]/.test(char)) {
-                // Convert digits to their Calculan letter equivalent
                 return { '1': 'A', '2': 'B', '3': 'C', '4': 'D', '5': 'E',
                          '6': 'F', '7': 'x', '8': 'y', '9': 'M', '0': 'e' }[char];
             } else if (char === ':') {
@@ -29,8 +28,6 @@ function convertToCalculan() {
                 return 'π';
             } else if (char === '=') {
                 return '051721011219.'; // "EQUALS"
-            } else if (char === '+') {
-                return '16122119.'; // "PLUS"
             } else if (char === '-') {
                 return '1309142119.'; // "MINUS"
             } else if (char === '/') {
@@ -42,7 +39,7 @@ function convertToCalculan() {
         }).join('') + '.'; // Add a period after each word
     });
 
-    const calculanText = calculanWords.join('+');  // Replace spaces with '+' sign
+    const calculanText = calculanWords.join('+'); // Replace spaces with '+' sign
     document.getElementById('outputText').value = calculanText;
 }
 
@@ -87,9 +84,6 @@ function convertToNormal() {
             switch (char) {
                 case '051721011219':
                     normalText += '=';
-                    break;
-                case '16122119':
-                    normalText += '+';
                     break;
                 case '1309142119':
                     normalText += '-';
