@@ -1,6 +1,7 @@
 function convertToCalculan() {
     const inputText = document.getElementById('inputText').value;
     const words = inputText.split(/\s+/); // Split input into words by spaces
+
     const calculanWords = words.map(word => {
         return word.split('').map(char => {
             if (/[a-zA-Z]/.test(char)) {
@@ -46,11 +47,14 @@ function convertToCalculan() {
 }
 
 function convertToNormal() {
-    const inputText = document.getElementById('inputText').value;
+    let inputText = document.getElementById('inputText').value;
     let normalText = '';
     let tempToken = '';
 
-    // Loop through the input and process each character individually
+    // Step 1: Replace "+" with space first
+    inputText = inputText.replace(/\+/g, ' ');  // Replace "+" with space
+
+    // Step 2: Process the remaining symbols and numbers
     for (let i = 0; i < inputText.length; i++) {
         const char = inputText[i];
 
@@ -135,9 +139,7 @@ function convertToNormal() {
         }
     }
 
-    // Replace '+' with space for normal text
-    normalText = normalText.replace(/\+/g, ' ');  // Fix here: replace '+' back with space
-
+    // Output the result
     document.getElementById('outputText').value = normalText;
 }
 
