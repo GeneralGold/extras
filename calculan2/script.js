@@ -39,19 +39,19 @@ function convertToCalculan() {
         }).join('') + '.'; // Add a period after each word
     });
 
-    const calculanText = calculanWords.join('+'); // Replace spaces with '+' sign
-    document.getElementById('outputText').value = calculanText;
+    const calculanText = calculanWords.join(' '); // Join with spaces for now
+    document.getElementById('outputText').value = calculanText.replace(/ /g, '+'); // Replace spaces with '+'
 }
 
 function convertToNormal() {
     let inputText = document.getElementById('inputText').value;
+
+    // Replace "+" with space at the end
+    inputText = inputText.replace(/\+/g, ' ');
+
     let normalText = '';
     let tempToken = '';
 
-    // Step 1: Replace "+" with space first
-    inputText = inputText.replace(/\+/g, ' ');  // Replace "+" with space
-
-    // Step 2: Process the remaining symbols and numbers
     for (let i = 0; i < inputText.length; i++) {
         const char = inputText[i];
 
@@ -64,7 +64,6 @@ function convertToNormal() {
         } else if (/[^A-Za-z0-9]/.test(char)) {
             // Symbols: If there's a tempToken (letters or numbers), process it first
             if (tempToken) {
-                // Process the token of letters or numbers
                 if (/^\d+$/.test(tempToken)) {
                     // Convert number sequences (01, 02, ..., 26) to letters
                     for (let j = 0; j < tempToken.length; j += 2) {
@@ -133,7 +132,6 @@ function convertToNormal() {
         }
     }
 
-    // Output the result
     document.getElementById('outputText').value = normalText;
 }
 
