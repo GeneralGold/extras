@@ -41,7 +41,7 @@ function convertToCalculan() {
         }).join('') + '.'; // Add a period after each word
     });
 
-    const calculanText = calculanWords.join('');
+    const calculanText = calculanWords.join('+');  // Replace spaces with '+' sign
     document.getElementById('outputText').value = calculanText;
 }
 
@@ -134,6 +134,9 @@ function convertToNormal() {
             });
         }
     }
+
+    // Replace '+' with space for normal text
+    normalText = normalText.replace(/\+/g, ' ');
 
     document.getElementById('outputText').value = normalText;
 }
