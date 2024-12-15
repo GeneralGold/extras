@@ -85,7 +85,7 @@
         const videoBaseUrl = "https://media.generalgoldyt.com/videos/";
 
         async function loadVideos() {
-            const response = await fetch('videos.json');
+            const response = await fetch('/videos.json');
             const videoMetadata = await response.json();
 
             const grid = document.getElementById('video-grid');
