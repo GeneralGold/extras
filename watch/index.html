@@ -136,7 +136,6 @@
     }
 
     .main-video-container {
-        flex: none;
         width: 100%;
         margin-right: 0;
         margin-bottom: 20px;
@@ -158,21 +157,21 @@
     }
 
     .related-videos {
-        flex: none;
         width: 100%;
-        max-height: 400px;
-        overflow-y: auto;
         margin-top: 20px;
+        margin-left: 0;
     }
 
     .related-video {
         display: flex;
         margin-bottom: 10px;
+        flex-wrap: wrap;
     }
 
     .related-video img {
-        width: 80px;
-        height: 53px;
+        width: 100%;
+        height: auto;
+        max-width: 120px;  /* Keep the aspect ratio 16:9 */
         margin-right: 10px;
     }
 
