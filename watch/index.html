@@ -1,192 +1,224 @@
 <!DOCTYPE html>
-<html lang="">
-  <head>
-    <meta charset="utf-8">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClawTube</title>
     <style>
-  @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap');
-    </style>
-    <link rel="icon" href="https://generalgold.github.io/extras/watch/icon.png">
-    <title>Modernia Video</title>
-
-
-  </head>
-  <body>
-  <img src="https://generalgold.github.io/extras/watch/icon.png" style="float: left; width: 70px; padding: 4px 0; margin-left: 10px" />
-    <div class="heading">
-    <h>Modernia Video Player</h>
-    </div>
-    <div>
-        <section class="video-player-wrapper">
-              <video id="mvideo" width="64%" height="36%" controls>
-                <source id="mvideoSrc" src="" type="video/webm">
-                Your browser does not support the video tag.
-              </video>
-        </section>
-    </div>
-    <section class="video-title">
-        <h3 id="editableTitle" class="title">Probably a really cool video, idk</h3>
-    </section>
-      </body>
-
-        <script>
-
-
-       function GetURLParameter(sParam)
-{
-    var sPageURL = window.location.search.substring(1);
-    var sURLVariables = sPageURL.split('&');
-    for (var i = 0; i < sURLVariables.length; i++)
-    {
-        var sParameterName = sURLVariables[i].split('=');
-        if (sParameterName[0] == sParam)
-        {
-            return sParameterName[1];
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #060c21;
+            color: white;
+            padding: 10px;
+            min-height: 100vh;
+            display: block;
+            overflow-x: hidden;
         }
-    }
-};
 
+        /* Header containing the logo and title */
+        .header {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            background-color: #1a2238;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Your script code here
-    var moderniaTitle = "(please reload page)";
-fetch("https://media.generalgoldyt.com/videos/" + GetURLParameter("v") + ".json")
-    .then(response => response.json())
-    .then(data => {
-        moderniaTitle = data.vidTitle; // Remove the 'var' keyword here
-        console.log(data.vidTitle);
-        document.title = moderniaTitle + " - Modernia Video";
-        document.getElementById("editableTitle").innerHTML = moderniaTitle;
-        var newvid = document.getElementById("mvideoSrc");
-        var source = "https://media.generalgoldyt.com/videos/" + GetURLParameter("v") + ".webm";
-        newvid.src = source;
-        var lvideo = document.getElementById("mvideo");
-        lvideo.load();
+        .header .logo {
+            width: 40px;
+            height: 40px;
+            background-image: url('/watch/icon.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin-right: 10px;
+        }
 
-        // No need for document.getElementById("moderniaAudio").load();
-    });
+        .header .title {
+            font-size: 1.5em;
+            color: white;
+            text-align: center;
+            flex-grow: 1;
+        }
 
-});
+        /* Main video container on the left */
+        .main-video-container {
+            margin-top: 60px;
+            margin-left: 10px;
+            text-align: left;
+            width: 100%;
+            max-width: 1280px; /* Set max-width back to 1280px */
+        }
 
+        .video-container {
+            width: 100%;
+        }
 
+        video {
+            width: 100%;
+            height: auto;
+            border: 4px solid white;
+            border-radius: 8px;
+        }
 
+        .video-title {
+            margin-top: 15px;
+            font-size: 20px;
+        }
+
+        .video-description {
+            margin-top: 10px;
+            font-size: 12px;
+            color: #cccccc;
+        }
+
+        /* Related videos container pinned to the right */
+        .related-videos {
+            position: fixed;
+            top: 60px;
+            right: 14px; /* Add right margin to prevent touching the edge */
+            margin-top: 10px;
+            width: 450px; /* Slightly larger container */
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .related-video {
+            display: flex;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .related-video img {
+            width: 192px;
+            height: 108px;
+            margin-right: 15px;
+            border-radius: 8px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .related-video .info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            max-width: 300px;
+        }
+
+        .related-video h4 {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .related-video p {
+            margin: 5px 0 0 0;
+            font-size: 12px;
+            color: #cccccc;
+        }
+
+        .error-message {
+            color: white;
+            font-size: 24px;
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+    <a href="/clawtube" class="logo-link">
+        <div class="logo"></div>
+    </a>
+    <div class="title">ClawTube</div>
+    </div>
+
+    <div class="main-video-container">
+        <div class="video-container">
+            <video id="video-player" controls></video>
+            <div class="video-title" id="video-title"></div>
+            <div class="video-description" id="video-description"></div>
+        </div>
+    </div>
+
+    <div class="related-videos" id="related-videos">
+        <!-- Related videos will be dynamically loaded here -->
+    </div>
+
+    <script>
+        async function loadVideoDetails() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const videoId = urlParams.get('v');
+
+            if (!videoId) {
+                showError('Invalid video ID');
+                return;
+            }
+
+            try {
+                // Try fetching videos.json from the root directory
+                const response = await fetch('/videos.json');  // Ensure the path is correct
+                console.log('Fetching /videos.json...');
+                if (!response.ok) {
+                    throw new Error(`Failed to load videos.json: ${response.statusText}`);
+                }
+
+                const videoMetadata = await response.json();
+                console.log('Fetched video metadata:', videoMetadata);  // Debugging output
+                const video = videoMetadata.find(v => v.id === videoId); // Correctly reference `v.id`
+
+                if (!video) {
+                    showError('Video not found');
+                    return;
+                }
+
+                // Set video details
+                document.getElementById('video-player').src = `https://media.generalgoldyt.com/videos/${video.id}.webm`;
+                document.getElementById('video-title').textContent = video.title;
+                document.getElementById('video-description').textContent = video.description;
+
+                // Load related videos
+                loadRelatedVideos(videoId, videoMetadata);  // Pass videoId to related videos function
+            } catch (error) {
+                console.error('Error loading video details:', error);  // Debugging output
+                showError('Failed to load video details');
+            }
+        }
+
+        function showError(message) {
+            document.body.innerHTML = `<div class="error-message">${message}</div>`;
+        }
+
+        function loadRelatedVideos(currentVideoId, videoMetadata) {
+            const relatedVideosContainer = document.getElementById('related-videos');
+            const relatedVideos = videoMetadata.filter(v => v.id !== currentVideoId).slice(0, 5);  // Exclude the current video
+
+            relatedVideos.forEach(video => {
+                const relatedVideoElement = document.createElement('div');
+                relatedVideoElement.className = 'related-video';
+                relatedVideoElement.innerHTML = `
+                    <img src="${video.thumbnail}" alt="Thumbnail of ${video.title}" style="background-image: url('${video.thumbnail}');">
+                    <div class="info">
+                        <h4>${video.title}</h4>
+                        <p>${video.duration}</p>
+                    </div>
+                `;
+
+                relatedVideoElement.addEventListener('click', () => {
+                    window.location.href = `/watch?v=${video.id}`;
+                });
+
+                relatedVideosContainer.appendChild(relatedVideoElement);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', loadVideoDetails);
     </script>
-
-
-  <style>
-  body {
-        margin: 0;
-        padding: 0;
-    }
-
-    header {
-        padding: 5px 0;
-        text-align: center;
-        background: #009090;
-        color: #fff;
-    }
-
-    header h1 {
-        font-size: 40px;
-    }
-
-    .material-symbols-outlined {
-        font-variation-settings:
-            'FILL' 0,
-            'wght' 500,
-            'GRAD' 50,
-            'opsz' 48
-    }
-
-    .icon {
-        font-size: 30px;
-        color: #fff;
-    }
-
-    .icon-size {
-        width: 30px;
-        height: 25px;
-        overflow: visible;
-    }
-
-    .video-title {
-        margin-top: 0px;
-        margin-left: 40px;
-        margin-bottom: 90px;
-        font-family: 'Open Sans', sans-serif;
-        color: black;
-    }
-    .video-player-wrapper {
-        margin-top: 20px;
-        margin-left: 40px;
-        margin-bottom: 5px;
-        /*  padding-top: 56.25%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625)  */
-    }
-
-    /* general styles */
-
-    .flex {
-        display: flex;
-    }
-
-    .flex-col {
-        flex-direction: column;
-    }
-
-    .items-center {
-        align-items: center;
-    }
-
-    .flex-center {
-        justify-content: center;
-        align-items: center;
-        align-content: center;
-    }
-
-    .justify-btw {
-        justify-content: space-between;
-    }
-
-    .justify-ard {
-        justify-content: space-around;
-    }
-
-    .justify-end {
-        justify-content: flex-end;
-    }
-
-    .justify-start {
-        justify-content: flex-start;
-    }
-
-    .hidden {
-        display: none;
-    }
-
-    .mt-10 {
-        margin-top: 10px;
-    }
-
-    .ms-10 {
-        margin-left: 10px;
-    }
-
-    .me-10 {
-        margin-right: 10px;
-    }
-
-    .grayed-out {
-        color: gray;
-    }
-
-    .heading {
-    padding: 10px;
-    text-align: center;
-    background: #15111a;
-    color: white;
-    font-size: 20px;
-    font-family: 'Open Sans', sans-serif;
-    }
-
-  </style>
+</body>
 </html>
