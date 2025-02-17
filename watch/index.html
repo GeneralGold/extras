@@ -207,73 +207,86 @@
     </div>
 
     <script>
-        async function loadVideoDetails() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const videoId = urlParams.get('v');
+    async function loadVideoDetails() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const videoId = urlParams.get('v');
 
-            if (!videoId) {
-                showError('Invalid video ID');
+        if (!videoId) {
+            showError('Invalid video ID');
+            return;
+        }
+
+        try {
+            // Try fetching videos.json from the root directory
+            const response = await fetch('/videos.json');  // Ensure the path is correct
+            console.log('Fetching /videos.json...');
+            if (!response.ok) {
+                throw new Error(`Failed to load videos.json: ${response.statusText}`);
+            }
+
+            const videoMetadata = await response.json();
+            console.log('Fetched video metadata:', videoMetadata);  // Debugging output
+            const video = videoMetadata.find(v => v.id === videoId); // Correctly reference `v.id`
+
+            if (!video) {
+                showError('Video not found');
                 return;
             }
 
+            // Check if .webm exists, else fallback to .mp4
+            const webmUrl = `https://media.generalgoldyt.com/videos/${video.id}.webm`;
+            const mp4Url = `https://media.generalgoldyt.com/videos/${video.id}.mp4`;
+
             try {
-                // Try fetching videos.json from the root directory
-                const response = await fetch('/videos.json');  // Ensure the path is correct
-                console.log('Fetching /videos.json...');
-                if (!response.ok) {
-                    throw new Error(`Failed to load videos.json: ${response.statusText}`);
+                const webmResponse = await fetch(webmUrl, { method: 'HEAD' });
+                if (webmResponse.ok) {
+                    document.getElementById('video-player').src = webmUrl;
+                } else {
+                    throw new Error('WEBM not found');
                 }
-
-                const videoMetadata = await response.json();
-                console.log('Fetched video metadata:', videoMetadata);  // Debugging output
-                const video = videoMetadata.find(v => v.id === videoId); // Correctly reference `v.id`
-
-                if (!video) {
-                    showError('Video not found');
-                    return;
-                }
-
-                // Set video details
-                document.getElementById('video-player').src = `https://media.generalgoldyt.com/videos/${video.id}.webm`;
-                document.getElementById('video-title').textContent = video.title;
-                document.getElementById('video-description').textContent = video.description;
-
-                // Load related videos
-                loadRelatedVideos(videoId, videoMetadata);  // Pass videoId to related videos function
-            } catch (error) {
-                console.error('Error loading video details:', error);  // Debugging output
-                showError('Failed to load video details');
+            } catch {
+                document.getElementById('video-player').src = mp4Url; // Fallback to .mp4 if .webm is not found
             }
+
+            document.getElementById('video-title').textContent = video.title;
+            document.getElementById('video-description').textContent = video.description;
+
+            // Load related videos
+            loadRelatedVideos(videoId, videoMetadata);  // Pass videoId to related videos function
+        } catch (error) {
+            console.error('Error loading video details:', error);  // Debugging output
+            showError('Failed to load video details');
         }
+    }
 
-        function showError(message) {
-            document.body.innerHTML = `<div class="error-message">${message}</div>`;
-        }
+    function showError(message) {
+        document.body.innerHTML = `<div class="error-message">${message}</div>`;
+    }
 
-        function loadRelatedVideos(currentVideoId, videoMetadata) {
-            const relatedVideosContainer = document.getElementById('related-videos');
-            const relatedVideos = videoMetadata.filter(v => v.id !== currentVideoId).slice(0, 5);  // Exclude the current video
+    function loadRelatedVideos(currentVideoId, videoMetadata) {
+        const relatedVideosContainer = document.getElementById('related-videos');
+        const relatedVideos = videoMetadata.filter(v => v.id !== currentVideoId).slice(0, 5);  // Exclude the current video
 
-            relatedVideos.forEach(video => {
-                const relatedVideoElement = document.createElement('div');
-                relatedVideoElement.className = 'related-video';
-                relatedVideoElement.innerHTML = `
-                    <img src="${video.thumbnail}" alt="Thumbnail of ${video.title}" style="background-image: url('${video.thumbnail}');">
-                    <div class="info">
-                        <h4>${video.title}</h4>
-                        <p>${video.duration}</p>
-                    </div>
-                `;
+        relatedVideos.forEach(video => {
+            const relatedVideoElement = document.createElement('div');
+            relatedVideoElement.className = 'related-video';
+            relatedVideoElement.innerHTML = `
+                <img src="${video.thumbnail}" alt="Thumbnail of ${video.title}" style="background-image: url('${video.thumbnail}');">
+                <div class="info">
+                    <h4>${video.title}</h4>
+                    <p>${video.duration}</p>
+                </div>
+            `;
 
-                relatedVideoElement.addEventListener('click', () => {
-                    window.location.href = `/watch?v=${video.id}`;
-                });
-
-                relatedVideosContainer.appendChild(relatedVideoElement);
+            relatedVideoElement.addEventListener('click', () => {
+                window.location.href = `/watch?v=${video.id}`;
             });
-        }
 
-        document.addEventListener('DOMContentLoaded', loadVideoDetails);
-    </script>
+            relatedVideosContainer.appendChild(relatedVideoElement);
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', loadVideoDetails);
+</script>
 </body>
 </html>
