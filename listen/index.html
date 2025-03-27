@@ -51,7 +51,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Your script code here
     var moderniaTitle = "(please reload page)";
-fetch("https://media.generalgoldyt.com/audio/" + GetURLParameter("a") + ".json")
+fetch("https://media.sylvurr.com/audio/" + GetURLParameter("a") + ".json")
     .then(response => response.json())
     .then(data => {
         moderniaTitle = data.audioTitle; // Remove the 'var' keyword here
@@ -59,7 +59,7 @@ fetch("https://media.generalgoldyt.com/audio/" + GetURLParameter("a") + ".json")
         document.title = moderniaTitle + " - Modernia Music";
         document.getElementById("editableTitle").innerHTML = moderniaTitle;
         var audio = document.getElementById("moderniaAudio");
-        var source = "https://media.generalgoldyt.com/audio/" + GetURLParameter("a") + ".mp3";
+        var source = "https://media.sylvurr.com/audio/" + GetURLParameter("a") + ".mp3";
         audio.src = source;
         var laudio = document.getElementById("mdrAudio");
         laudio.load();
